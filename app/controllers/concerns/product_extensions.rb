@@ -7,7 +7,6 @@ module ProductExtensions
   end
 
   module ClassMethods
-
   end
 
   module InstanceMethods
@@ -16,5 +15,4 @@ module ProductExtensions
       @main_option_value = params[SpreeVariantOptions::VariantConfig.main_option_type_label]
     end
   end
-
 end

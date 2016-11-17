@@ -6,7 +6,7 @@ Spree::Admin::ImagesController.class_eval do
     super_load_data
 
     @grouped_option_values ||= @product.option_values.group_by(&:option_type)
-    @grouped_option_values.sort_by { |option_type, option_values| option_type.position }
+    @grouped_option_values.sort_by { |option_type, _option_values| option_type.position }
   end
 
   # Called in a create.before
@@ -15,7 +15,7 @@ Spree::Admin::ImagesController.class_eval do
 
     if viewable_id.is_a?(Hash)
       @product.errors.add(:attachment, 'Erro')
-      option_values_array = viewable_id.map {|option_type, option_values| option_values.map(&:to_i) }
+      option_values_array = viewable_id.map { |_option_type, option_values| option_values.map(&:to_i) }
       option_values_combinations = option_values_array.shift
       option_values_array.each do |option_value|
         option_values_combinations = option_values_combinations.product(option_value)
@@ -40,7 +40,7 @@ Spree::Admin::ImagesController.class_eval do
 
   private
 
-  def create_image(variant, image_attributes)
+  def create_image(variant, _image_attributes)
     image = Spree::Image.new(permitted_resource_params)
     image.viewable_type = 'Spree::Variant'
     image.viewable_id = variant.id
